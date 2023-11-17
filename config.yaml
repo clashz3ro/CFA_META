@@ -114,22 +114,10 @@ rule-providers:
     interval: 86400
 proxy-providers:
  Akun-Vmess:
-    type: file
-    path: "./vpnVmess.yaml"
-    health-check:
-      enable: true
-      url: http://www.gstatic.com/generate_204
-      interval: '30'
-Akun-VmessgRPC:
-    type: file
-    path: "./vpnVmgRPC.yaml"
-    health-check:
-      enable: true
-      url: http://www.gstatic.com/generate_204
-      interval: '30'
- Akun-Trojan:
-    type: file
-    path: "./vpnTrojan.yaml"
+    type: http
+    url: https://raw.githubusercontent.com/clashz3ro/AUTO-CFM/main/clash_1.yaml
+    interval: 1440
+    path: "./clash_1.yaml"
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
@@ -141,8 +129,6 @@ proxy-groups:
   disable-udp: false
   use:
   - Akun-Vmess
-  - Akun-VmessgRPC
-  - Akun-Trojan
   url: http://www.gstatic.com/generate_204
   interval: '30'
   proxies:
@@ -153,8 +139,6 @@ proxy-groups:
   disable-udp: false
   use:
   - Akun-Vmess
-  - Akun-VmessgRPC
-  - Akun-Trojan
   url: http://www.gstatic.com/generate_204
   interval: '30'
 - name: AdBlock
