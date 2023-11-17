@@ -1,0 +1,201 @@
+rule-providers:
+  Direct:
+    type: http
+    behavior: classical
+    path: "./rule_provider/direct.yaml"
+    url: https://raw.githubusercontent.com/Xxxcl/Clash_config/main/rule_provider/direct.yaml
+    interval: 86400
+  Reject:
+    type: http
+    behavior: classical
+    path: "./rule_provider/reject.yaml"
+    url: https://raw.githubusercontent.com/Xxxcl/Clash_config/main/rule_provider/reject.yaml
+    interval: 86400
+  Whatsapp:
+    type: http
+    behavior: classical
+    path: "./rule/rule_whatsapp.yaml"
+    url: https://raw.githubusercontent.com/Xxxcl/Clash_config/main/rule_provider/rule_whatsapp.yaml
+  AdBlock:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_basicads.yaml
+    path: "./rule_provider/rule_basicads.yaml"
+    interval: 86400
+  Bank-id:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_bank-id.yaml
+    path: "./rule_provider/rule_bank-id.yaml"
+    interval: 86400
+  Disneyplus:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_disneyplus.yaml
+    path: "./rule_provider/rule_disneyplus.yaml"
+    interval: 86400
+  Gaming:
+    type: http
+    behavior: classical
+    path: "./rule_provider/rule_gaming.yaml"
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_gaming.yaml
+    interval: 86400
+  Personalads:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_personalads.yaml
+    path: "./rule_provider/rule_personalads.yaml"
+    interval: 86400
+  Porn:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_porn.yaml
+    path: "./rule_provider/rule_porn.yaml"
+    interval: 86400
+  Nsfw:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_nsfw.yaml
+    path: "./rule_provider/rule_nsfw.yaml"
+    interval: 86400
+  Metaverse:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_metaverse.yaml
+    path: "./rule_provider/rule_metaverse.yaml"
+    interval: 86400
+  Netflix:
+    type: http
+    behavior: domain
+    path: "./rule_provider/rule_netflix.yaml"
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_netflix.yaml
+    interval: 86400
+  Region_Indo:
+    type: http
+    behavior: classical
+    path: "./rule_provider/rule_indo.yaml"
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_indo.yaml
+    interval: 86400
+  Streaming:
+    type: http
+    behavior: classical
+    path: "./rule_provider/rule_streaming.yaml"
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_streaming.yaml
+    interval: 86400
+  Telegram:
+    type: http
+    behavior: domain
+    path: "./rule_provider/rule_telegram.yaml"
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_telegram.yaml
+    interval: 86400
+  Telegramcidr:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_telegramcidr.yaml
+    path: "./rule_provider/rule_telegramcidr.yaml"
+    interval: 86400
+  Tiktok:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_tiktok.yaml
+    path: "./rule_provider/rule_tiktok.yaml"
+    interval: 86400
+  Youtube:
+    type: http
+    behavior: domain
+    path: "./rule_provider/rule_youtube.yaml"
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_youtube.yaml
+    interval: 86400
+  Onlineshop:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/Xxxcl/Clash_config/main/rule_provider/onlineshopmaster.yaml
+    path: "./rule_provider/onlineshopmaster.yaml"
+    interval: 86400
+proxy-providers:
+ Akun-Vmess:
+    type: file
+    path: "./vpnVmess.yaml"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: '30'
+Akun-VmessgRPC:
+    type: file
+    path: "./vpnVmgRPC.yaml"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: '30'
+ Akun-Trojan:
+    type: file
+    path: "./vpnTrojan.yaml"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: '30'
+proxy-groups:
+- name: VPN
+  type: select
+  strategy: round-robin
+  disable-udp: false
+  use:
+  - Akun-Vmess
+  - Akun-VmessgRPC
+  - Akun-Trojan
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+  proxies:
+  - LOAD BALANCE
+  - DIRECT
+- name: LOAD BALANCE
+  type: load-balance
+  disable-udp: false
+  use:
+  - Akun-Vmess
+  - Akun-VmessgRPC
+  - Akun-Trojan
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+- name: AdBlock
+  type: select
+  proxies:
+  - VPN
+  - REJECT
+- name: 18+
+  type: select
+  proxies:
+  - VPN
+  - REJECT
+- name: ID
+  type: select
+  proxies:
+  - VPN
+  - REJECT
+rules:
+- IP-CIDR,198.18.0.1/16,REJECT,no-resolve
+- DOMAIN-SUFFIX,googlesyndication.com,VPN
+- DOMAIN-KEYWORD,byu,VPN
+- DOMAIN-KEYWORD,tokopedia,VPN
+- DOMAIN-KEYWORD,gojek,VPN
+- DOMAIN-KEYWORD,dana,VPN
+- RULE-SET,AdBlock,AdBlock
+- RULE-SET,Personalads,AdBlock
+- RULE-SET,Porn,18+
+- RULE-SET,Nsfw,18+
+- RULE-SET,Disneyplus,VPN
+- RULE-SET,Youtube,VPN
+- RULE-SET,Bank-id,ID
+- RULE-SET,Metaverse,VPN
+- RULE-SET,Netflix,VPN
+- RULE-SET,Gaming,VPN,tcp
+- RULE-SET,Region_Indo,ID
+- RULE-SET,Streaming,VPN
+- RULE-SET,Telegram,VPN
+- RULE-SET,Telegramcidr,VPN
+- RULE-SET,Tiktok,VPN
+- RULE-SET,Whatsapp,VPN
+- RULE-SET,Onlineshop,ID
+- RULE-SET,Direct,DIRECT
+- RULE-SET,Reject,REJECT
+- MATCH,VPN
