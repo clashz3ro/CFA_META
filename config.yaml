@@ -271,24 +271,6 @@ proxy-groups:
   - fool
   url: http://www.gstatic.com/generate_204
   interval: '30'
-  proxies:
-  - LOAD BALANCE
-  - BEST-PING
-  - DIRECT
-- name: BEST-PING
-  type: url-test
-  disable-udp: false
-  use:
-  - github
-  - fool
-- name: LOAD BALANCE
-  type: load-balance
-  disable-udp: false
-  use:
-  - github
-  - fool
-  url: http://www.gstatic.com/generate_204
-  interval: '30'
 - name: AdBlock
   type: select
   proxies:
