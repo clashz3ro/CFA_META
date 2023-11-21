@@ -261,6 +261,7 @@ proxy-providers:
       enable: true
       interval: 240
       url: https://cp.cloudflare.com/generate_204
+proxies:
 proxy-groups:
 - name: VPN
   type: url-test
