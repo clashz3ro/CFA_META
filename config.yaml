@@ -242,6 +242,7 @@ rule-providers:
     url: https://raw.githubusercontent.com/Xxxcl/Clash_config/main/rule_provider/onlineshopmaster.yaml
     path: "./rule_provider/onlineshopmaster.yaml"
     interval: 86400
+proxies:
 proxy-providers:
   github:
     type: http
@@ -261,7 +262,6 @@ proxy-providers:
       enable: true
       interval: 240
       url: https://cp.cloudflare.com/generate_204
-proxies:
 proxy-groups:
 - name: VPN
   type: url-test
