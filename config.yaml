@@ -265,7 +265,6 @@ proxy-providers:
 proxy-groups:
 - name: VPN
   type: url-test
-  strategy: round-robin
   disable-udp: false
   use:
   - github
