@@ -1,247 +1,157 @@
+---
 port: 7890
 socks-port: 7891
 redir-port: 7892
-mixed-port: 7893
 tproxy-port: 7895
-ipv6: false
-mode: rule
-log-level: silent
+mixed-port: 7893
 allow-lan: true
+mode: script
+log-level: info
+ipv6: false
 external-controller: 0.0.0.0:9090
-secret: ""
-bind-address: "*"
-unified-delay: true
-profile:
-  store-selected: true
-  store-fake-ip: true
+external-ui: folder
 dns:
   enable: true
   ipv6: false
-  use-host: true
   enhanced-mode: fake-ip
   listen: 0.0.0.0:7874
-  nameserver:
-    - 8.8.8.8
-    - 1.0.0.1
-    - https://dns.google/dns-query
-  fallback:
-    - 1.1.1.1
-    - 8.8.4.4
-    - https://cloudflare-dns.com/dns-query
-    - 112.215.203.254
-  default-nameserver:
-    - 8.8.8.8
-    - 1.1.1.1
-    - 112.215.203.254
-  fake-ip-range: 198.18.0.1/16
-  fake-ip-filter:
-    - "*.lan"
-    - "*.localdomain"
-    - "*.example"
-    - "*.invalid"
-    - "*.localhost"
-    - "*.test"
-    - "*.local"
-    - "*.home.arpa"
-    - time.*.com
-    - time.*.gov
-    - time.*.edu.cn
-    - time.*.apple.com
-    - time1.*.com
-    - time2.*.com
-    - time3.*.com
-    - time4.*.com
-    - time5.*.com
-    - time6.*.com
-    - time7.*.com
-    - ntp.*.com
-    - ntp1.*.com
-    - ntp2.*.com
-    - ntp3.*.com
-    - ntp4.*.com
-    - ntp5.*.com
-    - ntp6.*.com
-    - ntp7.*.com
-    - "*.time.edu.cn"
-    - "*.ntp.org.cn"
-    - +.pool.ntp.org
-    - time1.cloud.tencent.com
-    - music.163.com
-    - "*.music.163.com"
-    - "*.126.net"
-    - musicapi.taihe.com
-    - music.taihe.com
-    - songsearch.kugou.com
-    - trackercdn.kugou.com
-    - "*.kuwo.cn"
-    - api-jooxtt.sanook.com
-    - api.joox.com
-    - joox.com
-    - y.qq.com
-    - "*.y.qq.com"
-    - streamoc.music.tc.qq.com
-    - mobileoc.music.tc.qq.com
-    - isure.stream.qqmusic.qq.com
-    - dl.stream.qqmusic.qq.com
-    - aqqmusic.tc.qq.com
-    - amobile.music.tc.qq.com
-    - "*.xiami.com"
-    - "*.music.migu.cn"
-    - music.migu.cn
-    - "*.msftconnecttest.com"
-    - "*.msftncsi.com"
+  fallback-filter:
+    geoip: true
+    geoip-code: ID
+    ipcidr:
+    - 0.0.0.0/8
+    - 10.0.0.0/8
+    - 100.64.0.0/10
+    - 127.0.0.0/8
+    - 169.254.0.0/16
+    - 172.24.0.0/16
+    - 172.16.0.0/12
+    - 192.0.0.0/24
+    - 192.0.2.0/24
+    - 192.88.99.0/24
+    - 192.168.0.0/16
+    - 198.18.0.0/15
+    - 198.51.100.0/24
+    - 203.0.113.0/24
+    - 224.0.0.0/4
+    - 240.0.0.0/4
+    - 255.255.255.255/32
+    domain:
+    - "+.google.com"
+    - "+.netflix.com"
+    - "+.facebook.com"
+    - "+.youtube.com"
+    - "+.githubusercontent.com"
+    - "+.googlevideo.com"
+    - "+.msftconnecttest.com"
+    - "+.msftncsi.com"
     - msftconnecttest.com
     - msftncsi.com
-    - localhost.ptlogin2.qq.com
-    - localhost.sec.qq.com
-    - +.srv.nintendo.net
-    - +.stun.playstation.net
-    - xbox.*.microsoft.com
-    - xnotify.xboxlive.com
-    - +.battlenet.com.cn
-    - +.wotgame.cn
-    - +.wggames.cn
-    - +.wowsgame.cn
-    - +.wargaming.net
-    - proxy.golang.org
-    - stun.*.*
-    - stun.*.*.*
-    - +.stun.*.*
-    - +.stun.*.*.*
-    - +.stun.*.*.*.*
-    - heartbeat.belkin.com
-    - "*.linksys.com"
-    - "*.linksyssmartwifi.com"
-    - "*.router.asus.com"
-    - mesu.apple.com
-    - swscan.apple.com
-    - swquery.apple.com
-    - swdownload.apple.com
-    - swcdn.apple.com
-    - swdist.apple.com
-    - lens.l.google.com
-    - stun.l.google.com
-    - +.nflxvideo.net
-    - "*.square-enix.com"
-    - "*.finalfantasyxiv.com"
-    - "*.ffxiv.com"
-    - "*.mcdn.bilivideo.cn"
-    - +.media.dssott.com
-rule-providers:
-  Direct:
-    type: http
-    behavior: classical
-    path: "./rule_provider/direct.yaml"
-    url: https://raw.githubusercontent.com/Xxxcl/Clash_config/main/rule_provider/direct.yaml
-    interval: 86400
-  Reject:
-    type: http
-    behavior: classical
-    path: "./rule_provider/reject.yaml"
-    url: https://raw.githubusercontent.com/Xxxcl/Clash_config/main/rule_provider/reject.yaml
-    interval: 86400
-  Whatsapp:
-    type: http
-    behavior: classical
-    path: "./rule/rule_whatsapp.yaml"
-    url: https://raw.githubusercontent.com/Xxxcl/Clash_config/main/rule_provider/rule_whatsapp.yaml
-  AdBlock:
-    type: http
-    behavior: domain
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_basicads.yaml
-    path: "./rule_provider/rule_basicads.yaml"
-    interval: 86400
-  Bank-id:
-    type: http
-    behavior: domain
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_bank-id.yaml
-    path: "./rule_provider/rule_bank-id.yaml"
-    interval: 86400
-  Disneyplus:
-    type: http
-    behavior: classical
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_disneyplus.yaml
-    path: "./rule_provider/rule_disneyplus.yaml"
-    interval: 86400
-  Gaming:
-    type: http
-    behavior: classical
-    path: "./rule_provider/rule_gaming.yaml"
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_gaming.yaml
-    interval: 86400
-  Personalads:
-    type: http
-    behavior: classical
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_personalads.yaml
-    path: "./rule_provider/rule_personalads.yaml"
-    interval: 86400
-  Porn:
-    type: http
-    behavior: domain
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_porn.yaml
-    path: "./rule_provider/rule_porn.yaml"
-    interval: 86400
-  Nsfw:
-    type: http
-    behavior: domain
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_nsfw.yaml
-    path: "./rule_provider/rule_nsfw.yaml"
-    interval: 86400
-  Metaverse:
-    type: http
-    behavior: domain
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_metaverse.yaml
-    path: "./rule_provider/rule_metaverse.yaml"
-    interval: 86400
-  Netflix:
-    type: http
-    behavior: domain
-    path: "./rule_provider/rule_netflix.yaml"
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_netflix.yaml
-    interval: 86400
-  Region_Indo:
-    type: http
-    behavior: classical
-    path: "./rule_provider/rule_indo.yaml"
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_indo.yaml
-    interval: 86400
-  Streaming:
-    type: http
-    behavior: classical
-    path: "./rule_provider/rule_streaming.yaml"
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_streaming.yaml
-    interval: 86400
-  Telegram:
-    type: http
-    behavior: domain
-    path: "./rule_provider/rule_telegram.yaml"
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_telegram.yaml
-    interval: 86400
-  Telegramcidr:
-    type: http
-    behavior: ipcidr
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_telegramcidr.yaml
-    path: "./rule_provider/rule_telegramcidr.yaml"
-    interval: 86400
-  Tiktok:
-    type: http
-    behavior: domain
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_tiktok.yaml
-    path: "./rule_provider/rule_tiktok.yaml"
-    interval: 86400
-  Youtube:
-    type: http
-    behavior: domain
-    path: "./rule_provider/rule_youtube.yaml"
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_youtube.yaml
-    interval: 86400
-  Onlineshop:
-    type: http
-    behavior: classical
-    url: https://raw.githubusercontent.com/Xxxcl/Clash_config/main/rule_provider/onlineshopmaster.yaml
-    path: "./rule_provider/onlineshopmaster.yaml"
-    interval: 86400
-proxies:
+    fake-ip-filter:
+    - "+.pool.ntp.org"
+    - ntp7.*.com
+    - ntp6.*.com
+    - ntp5.*.com
+    - ntp4.*.com
+    - ntp3.*.com
+    - ntp2.*.com
+    - ntp1.*.com
+    - ntp.*.com
+    - time7.*.com
+    - time6.*.com
+    - time5.*.com
+    - time4.*.com
+    - time3.*.com
+    - time2.*.com
+    - time1.*.com
+    - time.*.apple.com
+    - time.*.edu.cn
+    - time.*.gov
+    - time.*.com
+    - "*.home.arpa"
+    - "*.local"
+    - "*.test"
+    - "*.localhost"
+    - "*.invalid"
+    - "*.example"
+    - "*.localdomain"
+    - time1.cloud.tencent.com
+    - "*.ntp.org"
+    - "*.time.edu"
+    - "*.lan"
+    - "*.ntp.org.cn"
+    - "*.time.edu.cn"
+    - "+.*"
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+  - 8.8.8.8
+  - 1.1.1.1
+  - https://dns.adguard-dns.com:3000/dns-query
+  - tls://dns.adguard-dns.com:3000
+  - 74.82.42.42
+  - 103.133.222.202
+  default-nameserver:
+  - 74.82.42.42
+  - 103.133.222.202
+  - 8.8.8.8
+  - 1.1.1.1
+  fake-ip-filter:
+  - "*.lan"
+  - "*.localdomain"
+  - "*.example"
+  - "*.invalid"
+  - "*.localhost"
+  - "*.test"
+  - "*.local"
+  - "*.home.arpa"
+  - time.*.com
+  - time.*.gov
+  - time.*.edu.cn
+  - time.*.apple.com
+  - time-ios.apple.com
+  - time1.*.com
+  - time2.*.com
+  - time3.*.com
+  - time4.*.com
+  - time5.*.com
+  - time6.*.com
+  - time7.*.com
+  - ntp.*.com
+  - ntp1.*.com
+  - ntp2.*.com
+  - ntp3.*.com
+  - ntp4.*.com
+  - ntp5.*.com
+  - ntp6.*.com
+  - ntp7.*.com
+  - "*.time.edu.cn"
+  - "*.ntp.org.cn"
+  - "+.pool.ntp.org"
+  - time1.cloud.tencent.com
+  - "+.msftconnecttest.com"
+  - "+.msftncsi.com"
+  - "+.msftconnecttest.com"
+  - "+.msftncsi.com"
+  - stun.*.*
+  - stun.*.*.*
+  - "+.stun.*.*"
+  - "+.stun.*.*.*"
+  - "+.stun.*.*.*.*"
+  - "+.stun.*.*.*.*.*"
+  - "*.linksys.com"
+  - "*.linksyssmartwifi.com"
+  - "*.router.asus.com"
+  - mesu.apple.com
+  - swscan.apple.com
+  - swquery.apple.com
+  - swdownload.apple.com
+  - swcdn.apple.com
+  - swdist.apple.com
+  - lens.l.google.com
+  - "+.google.com"
+  - Mijia Cloud
+  - "+.cmbchina.com"
+  - "+.cmbimg.com"
 proxy-providers:
   github:
     type: http
@@ -262,52 +172,112 @@ proxy-providers:
       interval: 240
       url: https://cp.cloudflare.com/generate_204
 proxy-groups:
-- name: VPN
+- name: ID-TECH-CHANNEL
+  type: select
+  disable-udp: false
+  proxies:
+  - SELECT
+  - PING
+  - FALLBACK
+  - LOADBALANCE
+  - DIRECT
+  url: http://www.gstatic.com/generate_204
+  interval: '99'
+- name: SELECT
+  type: select
+  disable-udp: false
+  use:
+  - github
+  - fool
+  url: http://www.gstatic.com/generate_204
+  interval: '99'
+- name: PING
   type: url-test
   disable-udp: false
   use:
   - github
   - fool
   url: http://www.gstatic.com/generate_204
-  interval: '30'
-- name: AdBlock
+  interval: '99'
+- name: FALLBACK
+  type: fallback
+  disable-udp: false
+  use:
+  - github
+  - fool
+  url: http://www.gstatic.com/generate_204
+  interval: '99'
+- name: LOADBALANCE
+  type: load-balance
+  strategy: round-robin
+  disable-udp: false
+  use:
+  - github
+  - fool
+  url: http://www.gstatic.com/generate_204
+  interval: '99'
+  url: http://www.gstatic.com/generate_204
+  interval: '99'
+- name: TCP-UDP
   type: select
+  disable-udp: false
   proxies:
-  - REJECT
-- name: 18+
-  type: select
-  proxies:
-  - VPN
-  - REJECT
-- name: ID
-  type: select
-  proxies:
-  - VPN
-  - REJECT
+  - SELECT
+  - PING
+  - FALLBACK
+  - LOADBALANCE
+  - DIRECT
+  url: http://www.gstatic.com/generate_204
+  interval: '99'
+script:
+  code: |
+    def main(ctx, metadata):
+        port = int(metadata["dst_port"])
+
+        if metadata["network"] == "UDP":
+            if port == "21,22,23,53,80,443,8443":
+                ctx.log('[Script] matched QUIC traffic use TCP-UDP')
+                return "TCP-UDP"
+
+        if metadata["dst_ip"] == "":
+            metadata["dst_ip"] = ctx.resolve_ip(metadata["host"])
+
+        port_list = [21, 22, 23, 53, 80, 81, 123, 443, 853, 5353, 8000, 8008, 8080, 8081, 8090, 8443, 8888, 9993]
+        if port not in port_list:
+            ctx.log('[Script] not common port use TCP-UDP')
+            return "TCP-UDP"
+
+        if metadata["dst_ip"] == "":
+            return "DIRECT"
+
+        for ruleset in ruleset_action:
+            if ctx.rule_providers[ruleset].match(metadata):
+                return ruleset_action[ruleset]
+
+        code = ctx.geoip(metadata["dst_ip"])
+        if code == "ID":
+            ctx.log('[Script] Geoip ID')
+            return "ID-TECH-CHANNEL"
+
+        ctx.log('[Script] ID-TECH-CHANNEL')
+        return "ID-TECH-CHANNEL"
 rules:
 - IP-CIDR,198.18.0.1/16,REJECT,no-resolve
-- DOMAIN-SUFFIX,googlesyndication.com,VPN
-- DOMAIN-KEYWORD,byu,VPN
-- DOMAIN-KEYWORD,tokopedia,VPN
-- DOMAIN-KEYWORD,gojek,VPN
-- DOMAIN-KEYWORD,dana,VPN
-- RULE-SET,AdBlock,AdBlock
-- RULE-SET,Personalads,AdBlock
-- RULE-SET,Porn,18+
-- RULE-SET,Nsfw,18+
-- RULE-SET,Disneyplus,VPN
-- RULE-SET,Youtube,VPN
-- RULE-SET,Bank-id,ID
-- RULE-SET,Metaverse,VPN
-- RULE-SET,Netflix,VPN
-- RULE-SET,Gaming,VPN,tcp
-- RULE-SET,Region_Indo,ID
-- RULE-SET,Streaming,VPN
-- RULE-SET,Telegram,VPN
-- RULE-SET,Telegramcidr,VPN
-- RULE-SET,Tiktok,VPN
-- RULE-SET,Whatsapp,VPN
-- RULE-SET,Onlineshop,ID
-- RULE-SET,Direct,DIRECT
-- RULE-SET,Reject,REJECT
-- MATCH,VPN
+- GEOIP,ID,ID-TECH-CHANNEL
+- MATCH,ID-TECH-CHANNEL
+tun:
+  enable: true
+  stack: system
+  auto-route: false
+  auto-detect-interface: false
+  dns-hijack:
+  - tcp://any:53
+profile:
+  store-selected: true
+  store-fake-ip: true
+secret: '123456'
+bind-address: "*"
+experimental:
+  sniff-tls-sni: true
+authentication:
+- Clash:hckUjOup
