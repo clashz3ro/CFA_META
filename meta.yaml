@@ -216,8 +216,6 @@ proxy-groups:
   - fool
   url: http://www.gstatic.com/generate_204
   interval: '99'
-  url: http://www.gstatic.com/generate_204
-  interval: '99'
 - name: TCP-UDP
   type: select
   disable-udp: false
